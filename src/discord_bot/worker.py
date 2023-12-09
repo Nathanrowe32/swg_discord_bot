@@ -1,7 +1,16 @@
 #import required dependencies
 from discord.ext import commands
 from functions import *
+import json
 #from ../llm import *
+
+
+with open(CONFIG_PATH) as json_file:
+    json_decoded = json.load(json_file)
+token = json_decoded.get('token')
+user_id = json_decoded.get('user_id')
+
+
 
 intents = discord.Intents.all()
 intents.members = True
@@ -36,4 +45,4 @@ async def llm(ctx):
         
     #await client.process_commands(ctx)
 
-client.run(TOKEN)
+client.run(token)
