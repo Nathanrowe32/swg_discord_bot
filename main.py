@@ -1,7 +1,7 @@
 import discord
 from discord.ext import commands
 from constants import *
-import json, os, asyncio
+import json, asyncio
 
 from llm_cog import llm_cog
 from build_bot_cog import build_bot_cog

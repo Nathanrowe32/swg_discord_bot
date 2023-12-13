@@ -1,4 +1,3 @@
-#import required dependencies
 from discord.ext import commands
 from transformers import AutoModelForCausalLM, AutoTokenizer
 
