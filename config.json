@@ -1,0 +1,5 @@
+{
+    "token": "DISCORD-BOT-API-TOKEN",
+    "user_id": "USER-ID",
+    "model": "stabilityai/stablelm-zephyr-3b"
+}
