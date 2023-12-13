@@ -1,35 +1,46 @@
 #import required dependencies
 from discord.ext import commands
-import asyncio
+from transformers import AutoModelForCausalLM, AutoTokenizer
 
 class llm_cog(commands.Cog):
-
-    def __init__(self, bot):
+    def __init__(self, bot, model):
         self.bot = bot
-        print("created worker")
+        self.tokenizer = AutoTokenizer.from_pretrained(model)
+        self.model = AutoModelForCausalLM.from_pretrained(model, trust_remote_code=True, device_map="auto")
+        print("llm_cog initalized")
+
+
+    def clean_response(self, llm_response, indicator):
+        index = llm_response.rindex(indicator) + len(indicator)
+        llm_response = llm_response[index:]
+        return llm_response
     
+    def llm_prompt(self, user_prompt):
+        prompt = [{'role': 'user', 'content': user_prompt}]
+        inputs = self.tokenizer.apply_chat_template(
+            prompt,
+            add_generation_prompt=True,
+            return_tensors='pt'
+        )
 
-    # Print when the bot is online.
-    @commands.Cog.listener()
-    async def on_ready(self):
-        print("{0.user} IS ONLINE." .format(self.bot.client))
-        # await client.change_presence(activity=discord.Activity(type=discord.ActivityType.listening, name="!commands"))
+        tokens = self.model.generate(
+            inputs.to(self.model.device),
+            max_new_tokens=1024,
+            temperature=0.8,
+            do_sample=True
+        )
 
-    @commands.command(name="copyme", help="Change bot prefix")
-    async def on_message(self, message):
-
-        # check if message is from bot
-        if (message.author != self.bot.client.user):
-            print(f"{message.channel} -> {message.author} said: {message.content}")
-            await message.channel.send(f"{message.channel} -> {message.author} said: {message.content}")
-
-        await self.bot.client.process_commands(message)
+        print(self.tokenizer.decode(tokens[0], skip_special_tokens=True))
+        clean_response = self.clean_response(self.tokenizer.decode(tokens[0], skip_special_tokens=True), "<|assistant|>")
+        return clean_response
 
     @commands.command()
     async def llm(self, ctx):
-
-        # check if message is from bot
-        if (ctx.message.author != self.bot.client.user):
-            print(f"Helping")
-            await ctx.message.channel.send(f"What do you need assistance with {ctx.message.author}?")
-            
+        print("llm activated, prompt = " + ctx.message.content)
+        await ctx.message.channel.send(self.llm_prompt(ctx.message.content[4:]))
+        print("llm done")
+    
+    @commands.command()
+    async def DEBUG(self, ctx):
+        print("DEBUG")
+        await ctx.message.channel.send("ECHO " + ctx.message.content)
