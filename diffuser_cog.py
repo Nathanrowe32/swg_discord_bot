@@ -1,17 +1,17 @@
 from diffusers import AutoPipelineForText2Image
-import torch
 from discord.ext import commands
 from constants import DIFFUSER_MODEL, DIFFUSSER_COMMAND_WORD
+import torch
 import discord
 import random
 import string
 
 class diffuser_cog(commands.Cog):
     def __init__(self, bot):
+        print("diffusers_cog initalizing")
         self.bot = bot
         self.pipe = AutoPipelineForText2Image.from_pretrained(DIFFUSER_MODEL, torch_dtype=torch.float16, variant="fp16")
         self.pipe.to("cuda")
-        print("diffusers_cog initalized")
 
     def diffuser_pipe(self, user_prompt):
         random_tag = ''.join(random.choice(string.ascii_letters + string.digits) for _ in range(10))

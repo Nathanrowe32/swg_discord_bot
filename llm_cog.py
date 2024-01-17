@@ -4,10 +4,10 @@ from constants import LLM_MODEL, LLM_COMMAND_WORD
 
 class llm_cog(commands.Cog):
     def __init__(self, bot):
+        print("llm_cog initalizing")
         self.bot = bot
         self.tokenizer = AutoTokenizer.from_pretrained(LLM_MODEL)
         self.model = AutoModelForCausalLM.from_pretrained(LLM_MODEL, trust_remote_code=True, device_map="auto")
-        print("llm_cog initalized")
 
 
     def clean_response(self, llm_response, indicator):
