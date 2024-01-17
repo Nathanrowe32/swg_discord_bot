@@ -1,5 +1,6 @@
 from discord.ext import commands
 from transformers import AutoModelForCausalLM, AutoTokenizer
+from constants import * 
 
 class llm_cog(commands.Cog):
     def __init__(self, bot, model):
@@ -35,11 +36,8 @@ class llm_cog(commands.Cog):
 
     @commands.command()
     async def llm(self, ctx):
-        print("llm activated, prompt = " + ctx.message.content)
-        await ctx.message.channel.send(self.llm_prompt(ctx.message.content[4:]))
+        prompt = ctx.message.content[len(LLM_COMMAND_WORD) + 1:]
+
+        print("llm activated, prompt = " + prompt)
+        await ctx.message.channel.send(self.llm_prompt(prompt))
         print("llm done")
-    
-    @commands.command()
-    async def DEBUG(self, ctx):
-        print("DEBUG")
-        await ctx.message.channel.send("ECHO " + ctx.message.content)
