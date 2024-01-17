@@ -1,12 +1,12 @@
 from discord.ext import commands
 from transformers import AutoModelForCausalLM, AutoTokenizer
-from constants import * 
+from constants import LLM_MODEL, LLM_COMMAND_WORD
 
 class llm_cog(commands.Cog):
-    def __init__(self, bot, model):
+    def __init__(self, bot):
         self.bot = bot
-        self.tokenizer = AutoTokenizer.from_pretrained(model)
-        self.model = AutoModelForCausalLM.from_pretrained(model, trust_remote_code=True, device_map="auto")
+        self.tokenizer = AutoTokenizer.from_pretrained(LLM_MODEL)
+        self.model = AutoModelForCausalLM.from_pretrained(LLM_MODEL, trust_remote_code=True, device_map="auto")
         print("llm_cog initalized")
 
 

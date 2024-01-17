@@ -1,15 +1,15 @@
 from diffusers import AutoPipelineForText2Image
 import torch
 from discord.ext import commands
+from constants import DIFFUSER_MODEL, DIFFUSSER_COMMAND_WORD
 import discord
-import constants
 import random
 import string
 
 class diffuser_cog(commands.Cog):
-    def __init__(self, bot, diffuser_model):
+    def __init__(self, bot):
         self.bot = bot
-        self.pipe = AutoPipelineForText2Image.from_pretrained(diffuser_model, torch_dtype=torch.float16, variant="fp16")
+        self.pipe = AutoPipelineForText2Image.from_pretrained(DIFFUSER_MODEL, torch_dtype=torch.float16, variant="fp16")
         self.pipe.to("cuda")
         print("diffusers_cog initalized")
 
@@ -25,7 +25,7 @@ class diffuser_cog(commands.Cog):
     
     @commands.command()
     async def diffuser(self, ctx):
-        prompt = ctx.message.content[len(constants.DIFFUSSER_COMMAND_WORD) + 1:]
+        prompt = ctx.message.content[len(DIFFUSSER_COMMAND_WORD) + 1:]
         generating_message = await ctx.send("Generating...")
         
         print("diffuser activated, prompt = " + prompt)
