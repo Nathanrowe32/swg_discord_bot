@@ -33,8 +33,3 @@ class diffuser_cog(commands.Cog):
         print("diffuser done")
         
         await generating_message.delete()
-
-    @commands.command()
-    async def diffuser_DEBUG(self, ctx):
-        print("DEBUG")
-        await ctx.message.channel.send("ECHO " + ctx.message.content)
