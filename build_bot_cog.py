@@ -8,7 +8,6 @@ class build_bot_cog(commands.Cog):
 
     def __init__(self, bot):
         self.bot = bot
-        self.loaded_cogs = {'llm_cog': 0, 'diffuser_cog': 0}
         print("build_bot_cog initalized")
     
     @commands.command()
