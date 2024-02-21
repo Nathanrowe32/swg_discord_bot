@@ -1,6 +1,6 @@
 {
-    "token": "DISCORD-BOT-API-TOKEN", // [Discord Bot API Token] (https://discord.com/developers/applications)
+    "token": "DISCORD-BOT-API-TOKEN",
     "user_id": "USER-ID",
-    "llm_model": "stabilityai/stablelm-zephyr-3b", // [Current LLM Model]
-    "diffuser_model": "stabilityai/sdxl-turbo" // [Current Diffuser Model]
+    "llm_model": "stabilityai/stablelm-zephyr-3b",
+    "diffuser_model": "stabilityai/sdxl-turbo"
 }
