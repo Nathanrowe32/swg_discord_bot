@@ -1,4 +1,4 @@
-<h1> __swg_discord_bot__ </h1>
+<h1><b>swg_discord_bot</b></h1>
 
 launch a localized llm & diffuser models into discord using bots
 
