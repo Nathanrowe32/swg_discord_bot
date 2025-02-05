@@ -1,6 +1,5 @@
 {
     "token": "DISCORD-BOT-API-TOKEN",
     "user_id": "USER-ID",
-    "llm_model": "stabilityai/stablelm-zephyr-3b",
     "diffuser_model": "stabilityai/sdxl-turbo"
 }

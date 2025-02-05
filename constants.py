@@ -8,7 +8,6 @@ with open(CONFIG_PATH) as json_file:
 
 TOKEN = json_decoded.get('token')
 USER_ID = json_decoded.get('user_id')
-LLM_MODEL = json_decoded.get('llm_model')
 DIFFUSER_MODEL = json_decoded.get('diffuser_model')
 
 AUDIO_SOURCE_FILE = ""
